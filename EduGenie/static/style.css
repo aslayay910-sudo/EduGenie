@@ -1,0 +1,76 @@
+/* Container for API section */
+.api-container {
+    max-width: 700px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Endpoint Card */
+.api-card {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Method Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+.badge-get {
+    background-color: #61affe; /* Blue for GET */
+}
+
+.badge-post {
+    background-color: #49cc90; /* Green for POST */
+}
+
+/* Form inputs & buttons */
+.api-card input[type="text"],
+.api-card textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-border-box;
+}
+
+.api-card button {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.api-card button:hover {
+    background-color: #1a252f;
+}
+
+/* Output response box */
+.response-box {
+    margin-top: 15px;
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 12px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}

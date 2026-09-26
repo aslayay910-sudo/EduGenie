@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGenie</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .output { margin-top: 10px; padding: 10px; background-color: #f4f4f4; border: 1px solid #ccc; min-height: 20px; }
+        form { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to EduGenie 🧞‍♂️</h1>
+    <p>Your personal AI tutor for learning support!</p>
+
+    <!-- Q&A -->
+    <form id="qaForm">
+        <label><strong>Ask EduGenie a Question:</strong></label><br><br>
+        <input type="text" id="question" placeholder="your question" required>
+        <button type="submit">Get Answer</button>
+    </form>
+    <div id="qaResult" class="output"></div>
+
+    <!-- Explanation -->
+    <form id="explainForm">
+        <label><strong>Need an Explanation?</strong></label><br><br>
+        <input type="text" id="topic" placeholder="your question" required>
+        <button type="submit">Explain</button>
+    </form>
+    <div id="explanationResult" class="output"></div>
+
+    <!-- Summary -->
+    <form id="summaryForm">
+        <label><strong>Summarize a Paragraph:</strong></label><br><br>
+        <input type="text" id="summaryText" placeholder="Paste long content to summarize" required>
+        <button type="submit">Summarize</button>
+    </form>
+    <div id="summaryResult" class="output"></div>
+
+    <!-- Quiz -->
+    <form id="quizForm">
+        <label><strong>Generate a Quiz:</strong></label><br><br>
+        <input type="text" id="quizText" placeholder="Solar System" required>
+        <button type="submit">Generate Quiz</button>
+    </form>
+    <div id="quizResult" class="output"></div>
+
+    <!-- Learning Path -->
+    <form id="learningPathForm">
+        <label><strong>Generate a Learning Path:</strong></label><br><br>
+        <input type="text" id="learningTopic" placeholder="Enter topic (e.g. Python, Data Structures)" required>
+        <button type="submit">Get Learning Path</button>
+    </form>
+    <div id="learningPathResult" class="output"></div>
+
+    <!-- JAVASCRIPT CODE TO CONNECT WITH BACKEND -->
+    <script>
+        // Q&A Function
+        document.getElementById("qaForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const question = document.getElementById("question").value;
+            const resultDiv = document.getElementById("qaResult");
+            resultDiv.innerText = "Processing request...";
+            
+            try {
+                const response = await fetch("/qa", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ question: question })
+                });
+                const data = await response.json();
+                resultDiv.innerText = data.answer ? data.answer : (data.error || "Error occurred.");
+            } catch (error) {
+                resultDiv.innerText = "Failed to connect to the server.";
+            }
+        });
+
+        // Explanation Function
+        document.getElementById("explainForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const topic = document.getElementById("topic").value;
+            const resultDiv = document.getElementById("explanationResult");
+            resultDiv.innerText = "Processing request...";
+            
+            try {
+                const response = await fetch("/explain", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ topic: topic })
+                });
+                const data = await response.json();
+                resultDiv.innerText = data.explanation ? data.explanation : (data.error || "Error occurred.");
+            } catch (error) {
+                resultDiv.innerText = "Failed to connect to the server.";
+            }
+        });
+
+        // Summarize Function
+        document.getElementById("summaryForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const text = document.getElementById("summaryText").value;
+            const resultDiv = document.getElementById("summaryResult");
+            resultDiv.innerText = "Processing request...";
+            
+            try {
+                const response = await fetch("/summarize", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: text })
+                });
+                const data = await response.json();
+                resultDiv.innerText = data.summary ? data.summary : (data.error || "Error occurred.");
+            } catch (error) {
+                resultDiv.innerText.innerText = "Failed to connect to the server.";
+            }
+        });
+
+        // Learning Path Function
+        document.getElementById("learningPathForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const topic = document.getElementById("learningTopic").value;
+            const resultDiv = document.getElementById("learningPathResult");
+            resultDiv.innerText = "Processing request...";
+            
+            try {
+                const response = await fetch("/learning-path", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ topic: topic })
+                });
+                const data = await response.json();
+                resultDiv.innerText = data.learning_path ? data.learning_path : (data.error || "Error occurred.");
+            } catch (error) {
+                resultDiv.innerText = "Failed to connect to the server.";
+            }
+        });
+      // Quiz Function
+        document.getElementById("quizForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const text = document.getElementById("quizText").value;
+            const resultDiv = document.getElementById("quizResult");
+            resultDiv.innerText = "Processing request...";
+            
+            try {
+                const response = await fetch("/quiz", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: text })
+                });
+                const data = await response.json();
+                if (data.quiz) {
+                    resultDiv.innerText = typeof data.quiz === 'string' ? data.quiz : JSON.stringify(data.quiz, null, 2);
+                } else {
+                    resultDiv.innerText = data.error || "Error occurred.";
+                }
+            } catch (error) {
+                resultDiv.innerText = "Failed to connect to the server.";
+            }
+        });
+
+    </script>
+</body>
+</html>
